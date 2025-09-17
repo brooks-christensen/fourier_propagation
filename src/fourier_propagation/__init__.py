@@ -1,7 +1,7 @@
 
-from .sampling import spatial_grid, freq_grid, pad_to_shape
-from .fields import gaussian_beam, plane_wave
-from .apertures import rect_aperture, circ_aperture, double_slit
-from .lenses import thin_lens_phase
-from .propagation import fresnel_propagate_fft, fraunhofer_propagate, angular_spectrum_propagate
-from .plotting import imshow_field, plot_intensity
+# 1D API
+from .sampling1d import spatial_grid_1d, freq_grid_1d, pad_to_length_1d
+from .fields1d import plane_wave_1d, gaussian_1d, thin_lens_phase_1d
+from .apertures1d import rect_slit_1d, double_slit_1d
+from .propagation1d import fresnel_propagate_fft_1d, fraunhofer_propagate_1d, angular_spectrum_propagate_1d
+from .plotting1d import plot_intensity_1d

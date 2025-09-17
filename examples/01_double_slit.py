@@ -13,7 +13,7 @@ center_sep = 200e-6
 z = 1.0              # 1 m to screen
 
 U0 = double_slit(nx, ny, dx, dy, slit_width, slit_height, center_sep)
-U1 = fraunhofer_propagate(U0, dx, dy, wavelength, z)
-imshow_field(U1, dx, dy, title="Double-slit Fraunhofer intensity")
-plot_intensity(U1, dx, dy, axis='x', title="Central line profile")
+U1, dx1, dy1 = fraunhofer_propagate(U0, dx, dy, wavelength, z, return_sampling=True, pad_factor=2)
+imshow_field(U1, dx1, dy1, title="Double-slit Fraunhofer intensity")
+plot_intensity(U1, dx1, dy1, axis='x', title="Central line profile")
 plt.show()

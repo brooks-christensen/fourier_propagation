@@ -14,6 +14,6 @@ z_after = f
 U0 = gaussian_beam(nx, ny, dx, dy, w0, wavelength, z=0.0)
 lens = thin_lens_phase(nx, ny, dx, dy, wavelength, f)
 U_lens = U0 * lens
-U_focus = angular_spectrum_propagate(U_lens, dx, dy, wavelength, z_after, bandlimit=True)
+U_focus = angular_spectrum_propagate(U_lens, dx, dy, wavelength, z_after, bandlimit=True, pad_factor=2)
 imshow_field(U_focus, dx, dy, title="Focused Gaussian intensity (near focus)")
 plt.show()

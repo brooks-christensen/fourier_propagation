@@ -11,6 +11,6 @@ radius = 100e-6
 
 U0 = circ_aperture(nx, ny, dx, dy, radius)
 for z in [0.01, 0.05, 0.1]:
-    U1 = fresnel_propagate_fft(U0, dx, dy, wavelength, z)
+    U1 = fresnel_propagate_fft(U0, dx, dy, wavelength, z, pad_factor=2)
     imshow_field(U1, dx, dy, title=f"Circular aperture Fresnel z={z} m")
 plt.show()

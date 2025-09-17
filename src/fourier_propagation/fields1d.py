@@ -17,7 +17,8 @@ def gaussian_1d(n, dx, w0, wavelength, z=0.0):
     Rz = np.inf if z==0 else z*(1 + (zr/z)**2)
     psi = np.arctan2(z, zr)
     amp = (w0 / wz) * np.exp(-(x**2) / (wz**2))
-    phase = np.exp(1j*(k*z + k*(x**2)/(2*Rz) - psi))
+    # phase = np.exp(1j*(k*z + k*(x**2)/(2*Rz) - psi))
+    phase = np.exp(1j*(k*z - k*(x**2)/(2*Rz) + psi))
     return amp * phase
 
 def thin_lens_phase_1d(n, dx, wavelength, f):

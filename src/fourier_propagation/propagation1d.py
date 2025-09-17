@@ -6,10 +6,10 @@ from .sampling1d import freq_grid_1d, pad_to_length_1d
 def _transfer_fresnel_1d(n, dx, wavelength, z):
     fx = freq_grid_1d(n, dx)
     k = 2*np.pi / wavelength
-    H = np.exp(1j * k * z) * np.exp(-1j * np.pi * wavelength * z * (fx**2))
+    H = np.exp(1j * k * z) * np.exp(1j * np.pi * wavelength * z * (fx**2))
     return H
 
-def fresnel_propagate_fft_1d(U0, dx, wavelength, z, pad_factor:int=2, crop:bool=True):
+def fresnel_propagate_fft_1d(U0: np.ndarray, dx: float, wavelength: float, z: float, pad_factor:int=2, crop:bool=True):
     """One-FFT Fresnel propagation in 1D with optional zero-padding and center crop."""
     n0 = U0.size
     if pad_factor and pad_factor > 1:
@@ -20,8 +20,14 @@ def fresnel_propagate_fft_1d(U0, dx, wavelength, z, pad_factor:int=2, crop:bool=
         U = U0
         n = n0
         _dx = dx
-    H = _transfer_fresnel_1d(n, _dx, wavelength, z)
-    U1_full = ifft( ifftshift(H) * fftshift( fft(U) ) )
+    # H = _transfer_fresnel_1d(n, _dx, wavelength, z)
+    # # U1_full = ifft( ifftshift(H) * fftshift( fft(U) ) )
+    # U1_full = ifft( ifftshift( H * fftshift( fft(U) ) ) )
+    fx = np.fft.fftfreq(n, d=_dx)
+    k  = 2*np.pi / wavelength
+    H  = np.exp(1j*k*z) * np.exp(-1j*np.pi*wavelength*z*(fx**2))
+    U1_full = np.fft.ifft( np.fft.fft(U) * H )
+
     if crop and n != n0:
         i0 = n//2 - n0//2
         U1 = U1_full[i0:i0+n0]
